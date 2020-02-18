@@ -1,0 +1,19 @@
+#!/bin/sh
+
+NGINX_UNIT_SOCKET_FILE='/run/control.unit.sock'
+
+# Run Nginx Unit daemon
+unitd --control "unix:${NGINX_UNIT_SOCKET_FILE}" \
+  --log /dev/stdout \
+  --pid /var/run/unitd.pid
+
+# Apply Nginx Unit configuration
+curl -X PUT \
+  --data-binary @/etc/unitd/conf.d/config.json \
+  --unix-socket "$NGINX_UNIT_SOCKET_FILE" \
+  --output /dev/null \
+  --silent \
+  http://localhost/config
+
+# Watch Nginx Unit daemon process
+while kill -0 "$(cat /var/run/unitd.pid)"; do sleep 1; done

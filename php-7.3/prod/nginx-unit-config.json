@@ -1,0 +1,50 @@
+{
+  "settings": {
+    "http": {
+      "body_read_timeout": 30,
+      "max_body_size": 6291456
+    }
+  },
+  "listeners": {
+    "*:8080": {
+      "pass": "routes"
+    }
+  },
+  "routes": [
+    {
+      "match": {
+        "scheme": "http"
+      },
+      "action": {
+        "pass": "applications/symfony"
+      }
+    },
+    {
+      "action": {
+        "share": "/var/www/html/public/"
+      }
+    }
+  ],
+  "applications": {
+    "symfony": {
+      "type": "php",
+      "root": "/var/www/html/public/",
+      "script": "index.php",
+      "limits": {
+        "timeout": 30,
+        "requests": 1000
+      },
+      "options": {
+        "file": "/etc/php7/php.ini",
+        "admin": {
+          "variables_order": "EGPCS"
+        },
+        "user": {
+          "display_errors": "0"
+        }
+      },
+      "processes": 1
+    }
+  },
+  "access_log": "/dev/stdout"
+}
