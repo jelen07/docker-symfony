@@ -37,7 +37,7 @@ COPY ./entrypoint /usr/local/bin/
 # Copy PHP "hello world" script to image
 COPY ./index.php /var/www/html/public/index.php
 
-HEALTHCHECK --interval=5s --timeout=5s CMD curl --fail http://localhost:8080/ || exit 1
+HEALTHCHECK --interval=15s --timeout=5s CMD curl --fail --user-agent 'docker/health-check' http://localhost:8080/ || exit 1
 
 EXPOSE 8080
 

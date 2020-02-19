@@ -15,5 +15,5 @@ curl -X PUT \
   --silent \
   http://localhost/config
 
-# Watch Nginx Unit daemon process
-while kill -0 "$(cat /var/run/unitd.pid)"; do sleep 1; done
+# Forward Nginx Unit access logs to stdout
+tail -f /var/log/access.log

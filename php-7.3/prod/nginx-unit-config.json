@@ -48,5 +48,5 @@
       "processes": 1
     }
   },
-  "access_log": "/dev/stdout"
+  "access_log": "/var/log/access.log"
 }
