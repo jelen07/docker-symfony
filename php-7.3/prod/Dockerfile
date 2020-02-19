@@ -1,5 +1,7 @@
 FROM alpine:3.11
 
+LABEL maintainer="Ondřej Misák <https://github.com/misaon>"
+
 WORKDIR /var/www/html
 
 # Install common packages
@@ -22,6 +24,10 @@ RUN apk add --no-cache --update \
     php7-simplexml \
     php7-tokenizer \
     php7-xml
+
+# Fix php7-iconv extension issue (https://github.com/docker-library/php/issues/240)
+RUN apk add --no-cache --update gnu-libiconv
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
 # Install Nginx Unit
 RUN apk add --no-cache --update \
