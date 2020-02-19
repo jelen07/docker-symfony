@@ -35,7 +35,7 @@ COPY ./nginx-unit-config.json /etc/unitd/conf.d/config.json
 COPY ./entrypoint /usr/local/bin/
 
 # Copy PHP "hello world" script to image
-COPY ./hello-world.php /var/www/html/public/index.php
+COPY ./index.php /var/www/html/public/index.php
 
 HEALTHCHECK --interval=5s --timeout=5s CMD curl --fail http://localhost:8080/ || exit 1
 
